@@ -9,34 +9,36 @@ namespace Selenium1_1
     
     public class Tests
     {
-        IWebDriver driver = new ChromeDriver();
+        
         [SetUp]
         public void Setup()
         {
-            driver.Navigate().GoToUrl("http://demosite.executeautomation.com/index.html?UserName=&Password=&Login=Login");
+            PropertyCollection.driver = new ChromeDriver();
+            PropertyCollection.driver.Navigate().GoToUrl("http://demosite.executeautomation.com/index.html?UserName=&Password=&Login=Login");
             Console.WriteLine("Setup Executed sucessfully");
         }
 
         [Test]
         public void Test1()
         {
+
             //for dropdowns
-            SeleniumSetMethod.Dropdown(driver, "TitleId", "Mr.", "Id");
+            SeleniumSetMethod.Dropdown("TitleId", "Mr.", Propertytype.Id);
             //to get the values from the seelcted dropdown list of values
-            Console.WriteLine("The selected value from dropdown is:" + SeleniumGetValues.GetValueFromDropdown(driver, "TitleId", "Id"));
+            Console.WriteLine("The selected value from dropdown is:" + SeleniumGetValues.GetValueFromDropdown("TitleId", Propertytype.Id));
             //for textbox
-            SeleniumSetMethod.EnterText(driver, "Initial", "abcd","Id");
+            SeleniumSetMethod.EnterText("Initial", "abcd",Propertytype.Id);
             //for Click
             //to get the values from the textbox
-            Console.WriteLine("The value extracted from textbox is:" + SeleniumGetValues.GetValueFromTextBox(driver, "Initial", "Id"));
-            SeleniumSetMethod.Click(driver,"Save","Name");
+            Console.WriteLine("The value extracted from textbox is:" + SeleniumGetValues.GetValueFromTextBox("Initial", Propertytype.Id));
+            SeleniumSetMethod.Click("Save",Propertytype.Name);
         }
         
         [TearDown]
         public void CloseBrowser() 
         {
             Thread.Sleep(2000);
-            driver.Close();
+            PropertyCollection.driver.Close();
             Console.WriteLine("CloseBrowser Executed sucessfully");
         }
     }
